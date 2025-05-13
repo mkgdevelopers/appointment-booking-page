@@ -20,7 +20,7 @@ export default function App() {
 
     setConfirmed(true);
     console.log({
-      name: data.name,
+      name: data.fullName,
       email: data.email,
       phone: data.phone,
       date: selectedDate.toDateString(),
