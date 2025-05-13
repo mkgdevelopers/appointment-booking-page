@@ -121,7 +121,7 @@ export default function App() {
       {/* Confirmation */}
       {confirmed && (
         <div className='confirmation'>
-          ✅ Your appointment is booked for {selectedDate} at {selectedTime}
+          ✅ Your appointment is booked for {selectedDate.toDateString()} at {selectedTime}
         </div>
       )}
     </div>
