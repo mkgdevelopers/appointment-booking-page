@@ -1,0 +1,31 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.logo{
+    height: 50px;
+    margin-left: 20px;
+}
+.header{
+    width: 100vw;
+    height: 50px;
+    background-color: #0f606ebd;
+    border-bottom: 1px solid #0b414bbd;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+.navbar ul{
+    display: flex;
+}
+.navbar ul li{
+    display: flex;
+    padding: 10px 30px;
+    list-style: none;
+}
+.navbar ul li:hover{
+    border-bottom: 1px solid rgb(0, 0, 0);
+    transition: 0.2s ease;
+    color: white;
+    cursor: pointer;
+}

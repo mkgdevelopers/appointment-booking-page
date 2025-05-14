@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './App.css'
+import Header from './assets/components/Header/Header';
 
 export default function App() {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -47,9 +48,15 @@ export default function App() {
 
   return (
   <div className="main">
+    <Header/>
+    <div className="hero">
+      <h1>At Vista : </h1>
+      <h2>We are dedicated to simplifying lives through intelligent and innovation technology. By combining the power of AI with cutting-edge solution, we help businesses and individual tackle today’s challenges and prepare for tomorrow’s need.</h2>
+    </div>
+
     <div className='container'>
 
-      <h1 className='heading'>Book Your Appointment</h1>
+      <h1 className='heading'>Schedule Smarter with Vista</h1>
 <div className="dateAndTime">
 
       <div className='section'>
