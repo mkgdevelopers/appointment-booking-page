@@ -9,8 +9,9 @@ export default function App() {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [confirmed, setConfirmed] = useState(false);
+  const [error, setError] = useState('')
 
-  const timeSlots = ['10:00 AM', '11:00 AM', '2:00 PM', '3:00 PM'];
+  const timeSlots = ['7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'];
 
   function onSubmit(data){
     if (!selectedDate || !selectedTime) {
@@ -28,31 +29,42 @@ export default function App() {
     });
   };
 
+  const isWeekend = (date) => {
+    const day = date.getDay();
+    return day === 0 || day === 6;
+  };
+
+
+  const handleDateClick = (date) => {
+    if (isWeekend(date)) {
+      setError("❌ Cannot book on weekends!");
+      setSelectedDate('');
+    } else {
+      setSelectedDate(date)
+      setError('');
+    }
+  };
+
   return (
   <div className="main">
-
-    <h1>A Simple Appointment Booking React App</h1>
-
     <div className='container'>
 
-      <h2 className='heading'>Book an Appointment for Internship</h2>
+      <h1 className='heading'>Book Your Appointment</h1>
 <div className="dateAndTime">
 
       <div className='section'>
-        <label className='label'>Select a Date:</label>
+        <label className='label'>Select time:</label>
         <Calendar
           onChange={(date) => {
-            setSelectedDate(date);
-            setSelectedTime('');
+            handleDateClick(date)
             setConfirmed(false);
           }}
           value={selectedDate}
         />
+        {error && <p style={{ color: 'red' }}>{error}</p>}
       </div>
 
-{selectedDate && (
         <div className='section'>
-          <label className='label'>Available Time Slots:</label>
           <div className='timeSlotContainer'>
             {timeSlots.map((time) => (
               <button
@@ -60,12 +72,15 @@ export default function App() {
                 type="button"
                 onClick={() => setSelectedTime(time)}
                 style={{
-                  padding: '8px 14px',
-                  borderRadius: '4px',
-                  border: '1px solid #000000',
+                  height:'50px',
+                  width:'100px',
+                  borderRadius: '10px',
                   cursor: 'pointer',
                   fontSize: '14px',
-                  backgroundColor: selectedTime === time ? '#547792' : '#eee',
+                  border:'none',
+                  boxShadow:'0 0 10px #302f2f',
+                  margin:'10px 10px',
+                  backgroundColor: selectedTime === time ? '#006edc' : 'white',
                   color: selectedTime === time ? '#fff' : '#000',
                 }}
               >
@@ -75,7 +90,6 @@ export default function App() {
             ))}
           </div>
         </div>
-)}
 
 </div>
 
@@ -112,6 +126,16 @@ export default function App() {
               className='input'
             />
             {errors.phone && <p className='error'>Phone number is required</p>}
+          </div>
+
+          <div className="field">
+            <label className="label">Current job</label>
+            <input 
+            type="text"
+            {...register('currentJob', {required: true})}
+            className='input'
+            />
+            {errors.currentJob && <p className='error'>Current Job is required</p>}
           </div>
 
           <button type="submit" className='submitButton'>Book Appointment</button>
