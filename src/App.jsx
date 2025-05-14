@@ -171,7 +171,7 @@ export default function App() {
         <div  className="popup">
         <div className="popup-content">
           <h2>Appointment Confirmed!</h2>
-          <p>Your booking has been successfully scheduled on {selectedDate.toDateString()} at {selectedTime}.</p>
+          <p>Your appointment has been successfully scheduled on {selectedDate.toDateString()} at {selectedTime}.</p>
           <button onClick={() => {
             setConfirmed(false)
             window.location.reload()}
