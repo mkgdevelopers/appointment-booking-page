@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useRef, useEffect} from 'react';
 import { useForm } from 'react-hook-form';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -14,6 +14,9 @@ export default function App() {
 
   const timeSlots = ['7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'];
 
+  const mainRef = useRef(null);
+  
+
   function onSubmit(data){
     if (!selectedDate || !selectedTime) {
       alert('Please select a date and time.');
@@ -21,6 +24,8 @@ export default function App() {
     }
 
     setConfirmed(true);
+
+    document.getElementsByClassName('')
     console.log({
       name: data.fullName,
       email: data.email,
@@ -35,7 +40,15 @@ export default function App() {
     return day === 0 || day === 6;
   };
 
-
+  useEffect(() => {
+    if (confirmed) {
+      mainRef.current?.classList.add('blur');
+    } else {
+      mainRef.current?.classList.remove('blur');
+    }
+  }, [confirmed]);
+  
+  
   const handleDateClick = (date) => {
     if (isWeekend(date)) {
       setError("❌ Cannot book on weekends!");
@@ -47,7 +60,9 @@ export default function App() {
   };
 
   return (
-  <div className="main">
+    <div className="outerMain">
+
+  <div ref={mainRef} className="main">
     <Header/>
     <div className="hero">
       <h1>At Vista : </h1>
@@ -148,14 +163,23 @@ export default function App() {
           <button type="submit" className='submitButton'>Book Appointment</button>
         </form>
       )}
-
       {/* Confirmation */}
-      {confirmed && (
-        <div className='confirmation'>
-          ✅ Your appointment is booked for {selectedDate.toDateString()} at {selectedTime}
-        </div>
-      )}
+      
     </div>
+    </div>
+    {confirmed &&(
+        <div  className="popup">
+        <div className="popup-content">
+          <h2>Appointment Confirmed!</h2>
+          <p>Your booking has been successfully scheduled on {selectedDate.toDateString()} at {selectedTime}.</p>
+          <button onClick={() => {
+            setConfirmed(false)
+            window.location.reload()}
+            }>Okay</button>
+
+        </div>
+      </div>
+      )}
     </div>
   );
 }
