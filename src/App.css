@@ -2,16 +2,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Share+Tech&display=swap');
 body{
   /* background-color: #138397; */
-  background-image: url(https://thevista.one/wp-content/uploads/2024/11/annie-spratt-MChSQHxGZrQ-unsplash-scaled.webp);
-  background-size:cover;
+  /* background-image: url(https://thevista.one/wp-content/uploads/2024/11/annie-spratt-MChSQHxGZrQ-unsplash-scaled.webp); */
+  /* background-size:cover; */
+  background: rgb(3, 106, 146);
   display: flex;
   justify-content: center;
   font-family: "Poppins", sans-serif;
+}
+.content{
+  display: flex;
+  justify-content: space-between;
 }
 h1{
   text-align: center;
   margin: 0;
   padding: 15px 0px;
+}
+.hero > h1{
+  color: rgb(255, 255, 255);
 }
 .hero{
   font-family: "Poppins", sans-serif;
@@ -19,34 +27,45 @@ h1{
   font-style: normal;
   margin-top: 50px;
   margin-bottom: 50px;
-  width: 80vw;
-  padding: 0 100px;
+  width: 350px;
+  height: 400px;
+  padding: 0 50px;
+  margin-left:30px ;
   color: white;
+  font-size: 0.8rem;
+  background-color: rgba(0, 0, 0, 0.349);
+  border-radius: 10px;
+}
+.hero > h2{
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 6px 12px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 .dateAndTime{
   display: flex;
-  width: 800px;
+  width: 650px;
   gap: 40px;
   margin-bottom: 10px;
 }
 .container{
   margin: 20px auto;
-  padding: 20px 70px;
+  padding: 20px;
   border-radius: 8px;
-  width: 750px;
+  width: 700px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.2); 
-  backdrop-filter: blur(10px);        
-  -webkit-backdrop-filter: blur(10px); 
-  border: 1px solid rgba(255, 255, 255, 0.3); /* optional border */
+  background: linear-gradient(135deg, rgb(12, 124, 168), rgb(192, 230, 245));
+  border: 1px solid rgba(255, 255, 255, 0.3); 
   border-radius: 12px;
   color: white;
 }
 .heading{
-  background: linear-gradient(135deg, #034a55, #05a9c2);
   padding: 10px 20px;
   font-weight: 100;
   font-style: normal;
@@ -71,13 +90,13 @@ h1{
   font-size: 14px;
 }
 .timeSlotContainer{
-  margin-top: 150px;
-  height: 300px;
-  width: 400px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  margin-top: 140px;
+  height: 150px;
+  width: 250px;
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 10px;
+  overflow-x: scroll;
 }
 
 .form{
@@ -124,26 +143,36 @@ transition: all 0.2s ease;
   background: none;
   border: none;
   padding: 10px;
-  width: 400px;
+  width: 300px;
+
 }
 .react-calendar__navigation{
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 0 15px #303f3f;
-  width: 400px;
-
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  width: 300px;
 }
 .react-calendar__viewContainer{
   margin-top: 25px;
-  border-radius: 10px;
-  background: white;
-  box-shadow: 0 0 10px #302f2f;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 400px;
+  width: 300px;
+  height: 250px;
+}
+.react-calendar__month-view__days{
+  height: 80px;
 }
 .react-calendar__month-view__days__day{
   border-radius: 50%;
-  height: 52px;
+  height: 38px;
 }
 .react-calendar__month-view__days__day:hover{
   background-color: rgba(68, 150, 243, 0.479);

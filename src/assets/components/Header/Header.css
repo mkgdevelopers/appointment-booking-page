@@ -23,6 +23,10 @@
     padding: 10px 30px;
     list-style: none;
 }
+.navbar ul li a{
+    color: white;
+    text-decoration: none;
+}
 .navbar ul li:hover{
     border-bottom: 1px solid rgb(0, 0, 0);
     transition: 0.2s ease;
