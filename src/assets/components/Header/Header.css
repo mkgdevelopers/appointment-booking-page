@@ -8,7 +8,6 @@
 }
 .header{
     width: 100vw;
-    /* background-color: #0f606ebd; */
     background-color: rgb(247, 245, 245);
     border-bottom: 1px solid #0b414bbd;
     display: flex;

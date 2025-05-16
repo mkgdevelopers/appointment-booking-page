@@ -1,0 +1,31 @@
+.service-container{
+    background: white;
+    height: 100vh;
+}
+.service-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.service-card {
+    background: rgba(241, 241, 241);
+    border-radius: 16px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 25%;
+    height: 200px;
+    color: #666666;
+    transition: all 0.3s ease;
+  }
+
+  .title{
+    color: #555;
+    margin-bottom: 20px;
+  }
+  .service-card:hover{
+    scale: 1.1;
+  }

@@ -1,6 +1,7 @@
 import React from 'react'
 import './Header.css'
 import logo from '../../vistaonelogo.jpeg'
+import { Link } from 'react-router-dom'
 const Header = () => {
   return (
     <div className='header'>
@@ -8,10 +9,10 @@ const Header = () => {
       <div className="navbar">
         
         <ul>
-            <li><a href='#'> Home</a></li>
-            <li><a href='#'> Services</a></li>
-            <li><a href='#'> About</a></li>
-            <li><a href='#'> Account</a></li>
+            <li><Link to='/appointment-booking-page'> Home</Link></li>
+            <li><Link to='/appointment-booking-page/services '> Services</Link></li>
+            <li><Link to='/appointment-booking-page/blogs'> Blogs</Link></li>
+            <li><Link to='/appointment-booking-page/account'> Account</Link></li>
         </ul>
       </div>
       <p></p>
