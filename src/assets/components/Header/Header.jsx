@@ -9,7 +9,7 @@ const Header = () => {
       <div className="navbar">
         
         <ul>
-            <li><Link to='/appointment-booking-page'> Home</Link></li>
+            <li><Link to='/'> Home</Link></li>
             <li><Link to='/appointment-booking-page/services '> Services</Link></li>
             <li><Link to='/appointment-booking-page/blogs'> Blogs</Link></li>
             <li><Link to='/appointment-booking-page/account'> Account</Link></li>
