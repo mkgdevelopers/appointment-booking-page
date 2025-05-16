@@ -11,10 +11,10 @@ const App = () => {
     <div>
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/services' element={<Service/>}/>
-        <Route path='/blogs' element={<BlogList/>}/>
-        <Route path='/blogs/:uid' element={<BlogDetails/>}/>
-        <Route path='/account' element={<Account/>}/>
+        <Route path='/appointment-booking-page/services' element={<Service/>}/>
+        <Route path='/appointment-booking-page/blogs' element={<BlogList/>}/>
+        <Route path='/appointment-booking-page/blogs/:uid' element={<BlogDetails/>}/>
+        <Route path='/appointment-booking-page/account' element={<Account/>}/>
         {/* <Route path="*" element={<h1>Fallback Route</h1>} /> */}
       </Routes>
     </div>
