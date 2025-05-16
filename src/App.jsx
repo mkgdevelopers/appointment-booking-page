@@ -10,7 +10,7 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path='/appointment-booking-page' element={<Home/>}/>
+        <Route path='/' element={<Home/>}/>
         <Route path='/appointment-booking-page/services' element={<Service/>}/>
         <Route path='/appointment-booking-page/blogs' element={<BlogList/>}/>
         <Route path='/appointment-booking-page/blogs/:uid' element={<BlogDetails/>}/>
