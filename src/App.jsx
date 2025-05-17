@@ -28,8 +28,8 @@ const App = () => {
         <Route path='/appointment-booking-page/account' element={<Account/>}/>
         {/* <Route path="*" element={<h1>Fallback Route</h1>} /> */}
 
-        <Route path="/appointment-booking-page/login" element={<AdminLogin />} />
-        <Route path="appointment-booking-page/admin/" 
+        <Route path="/login" element={<AdminLogin />} />
+        <Route path="/admin" 
         element={<ProtectedRoute> <AdminLayout /></ProtectedRoute>}>
 
           <Route index element={<AdminDashboard />} />
