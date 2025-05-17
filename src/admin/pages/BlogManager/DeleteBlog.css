@@ -1,0 +1,58 @@
+.delete-blog-container {
+  min-width: 500px;
+  margin: 80px auto;
+  padding: 32px;
+  border: 2px solid #ff4d4d;
+  border-radius: 16px;
+  background-color: #fff5f5;
+  box-shadow: 0 0 15px rgba(255, 77, 77, 0.2);
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.deletion-confirmation-text {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  font-weight: 500;
+  color: #d32f2f;
+}
+
+.deletion-confirmation-input {
+  /* width: 100%; */
+  padding: 10px 14px;
+  border: 2px solid #ff4d4d;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin: 0 auto;
+  outline: none;
+  transition: 0.2s;
+}
+
+.deletion-confirmation-input:focus {
+  border-color: #d32f2f;
+  box-shadow: 0 0 5px rgba(255, 77, 77, 0.3);
+}
+
+.delete-match-error {
+  color: #d32f2f;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+
+.delete-blog-button {
+  margin: 2px;
+  background-color: #ff4d4d;
+  color: white;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.delete-blog-button:hover {
+  background-color: #d32f2f;
+}

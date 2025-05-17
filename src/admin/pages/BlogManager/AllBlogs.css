@@ -1,0 +1,61 @@
+.admin-blog-container {
+  padding: 1rem;
+}
+
+.admin-blog-heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.admin-blog-table {
+  width: 100%;
+  border: 1px solid #d1d5db; /* gray-300 */
+  border-collapse: collapse;
+}
+
+.admin-blog-thead {
+  background-color: #f3f4f6; /* gray-100 */
+}
+
+.admin-blog-th, .admin-blog-td {
+  text-align: left;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db; /* gray-300 */
+}
+
+.admin-blog-actionsButton {
+  color: #3b82f6; /* blue-500 */
+  text-decoration: none;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+.admin-blog-actionsButton:hover {
+  text-decoration: underline;
+}
+
+.admin-blog-deleteButton {
+  color: #ef4444; /* red-500 */
+  cursor: pointer;
+}
+
+.admin-blog-deleteButton:hover {
+  text-decoration: underline;
+}
+
+.admin-dashboard-create-btn {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 20px;
+}
+
+.admin-dashboard-create-btn:hover {
+  background-color: #2563eb;
+}

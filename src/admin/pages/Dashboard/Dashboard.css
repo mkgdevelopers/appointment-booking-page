@@ -1,0 +1,54 @@
+.admin-dashboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  background-color: #f4f6f8;
+  min-height: 100vh;
+}
+
+.admin-dashboard-card {
+  background-color: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+.admin-dashboard-title {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #1e293b;
+}
+
+.admin-dashboard-welcome {
+  font-size: 1.2rem;
+  margin-bottom: 24px;
+  color: #475569;
+}
+
+.admin-dashboard-info {
+  text-align: left;
+}
+
+.admin-dashboard-subtitle {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #334155;
+}
+
+.admin-dashboard-actions {
+  list-style: none;
+  padding-left: 0;
+  color: #475569;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.admin-dashboard-actions li {
+  margin-bottom: 8px;
+}
+

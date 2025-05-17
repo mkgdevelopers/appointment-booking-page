@@ -16,7 +16,7 @@ const Account = () => {
     };
 
     const onSubmit = (data) => {
-        if(!isValidPassword(data.password)){
+        if(isValidPassword(data.password)){
             setError('Password must be 8 charachters long and must contain at-least 1 (uppercase letter, number) and a special charachter')
         }
         if(!data.password == data.confirmPassword){

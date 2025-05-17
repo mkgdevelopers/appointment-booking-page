@@ -215,6 +215,7 @@ transition: all 0.2s ease;
   height: 50px;
   z-index: 999;
   color: black;
+   animation: fadeIn 0.5s ease forwards;
 }
 .popup-content {
   background: white;
@@ -275,4 +276,9 @@ transition: all 0.2s ease;
     width: 300px;
     height: 600px;
   }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
