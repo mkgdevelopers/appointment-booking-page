@@ -12,7 +12,7 @@ const AdminLogin = () => {
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('adminLoggedIn');
     if (isLoggedIn === 'true') {
-      navigate('/appointment-booking-page/admin/');
+      navigate('/admin/');
     }
   }, [navigate]);
 
@@ -33,7 +33,7 @@ const AdminLogin = () => {
   // Simple hardcoded login check (can be replaced later with Sanity/Firebase)
   if (email === 'admin@vista.com' && password === 'vista123') {
     localStorage.setItem('adminLoggedIn', 'true');
-    navigate('/appointment-booking-page/admin/');
+    navigate('/admin/');
   } else {
     setError('❌ Invalid email or password');
   }
