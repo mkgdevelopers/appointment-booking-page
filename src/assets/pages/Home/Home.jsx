@@ -86,8 +86,17 @@ const Home = () => {
       }
 
       await adminClient.create(appointment);
+
+      // Send email
+      await fetch('/api/sendEmail', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(appointment),
+      });
+
       setConfirmed(true);
       reset();
+
     } catch (err) {
       console.error("Error saving to Sanity:", err);
       alert("Something went wrong while saving. Please try again.");
