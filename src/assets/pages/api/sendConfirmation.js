@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
     const response = await resend.emails.send({
       from: 'Your Site <onboarding@resend.dev>',
-      to: 'youradmin@example.com', // Change this to your actual email
+      to: 'muaaznaeemoff@gmail.com', // Change this to your actual email
       subject: 'New Appointment Booking',
       html: `
         <h2>New Appointment Booked</h2>
