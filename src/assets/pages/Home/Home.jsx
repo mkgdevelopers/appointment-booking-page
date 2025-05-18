@@ -88,7 +88,7 @@ const Home = () => {
       await adminClient.create(appointment);
 
       // Send email
-      await fetch('/api/sendEmail', {
+      await fetch('/api/sendConfirmation.js', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(appointment),
