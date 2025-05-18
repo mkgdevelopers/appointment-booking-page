@@ -1,92 +1,109 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { EditorContent, useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
 import { client, adminClient } from '../../../sanityClient';
 import './EditBlog.css';
 
 export default function EditBlog() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { slug } = useParams();
   const [blog, setBlog] = useState(null);
-  const [formData, setFormData] = useState({ title: '', content: '' });
+  const [title, setTitle] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const fetchBlog = async () => {
-    try {
-      const blogDoc = await adminClient.fetch(
-        `*[_type == "blog" && slug.current == $slug][0]`,
-        { slug }
-      );
-
-      if (!blogDoc) {
-        console.warn("No blog found for slug:", slug);
-        setBlog(null);
-        return;
-      }
-
-      setBlog(blogDoc);
-      setFormData({
-        title: blogDoc.title || '',
-        content: blogDoc.content || '',
-      });
-    } catch (err) {
-      console.error('Error fetching blog:', err);
-    }
-  };
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: '',
+  });
 
   useEffect(() => {
-    fetchBlog();
-  }, [slug]);
+    const fetchBlog = async () => {
+      try {
+        const blogDoc = await adminClient.fetch(
+          `*[_type == "blog" && slug.current == $slug][0]{_id, title, content}`,
+          { slug }
+        );
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+        if (!blogDoc) {
+          setErrorMsg('❌ No blog found.');
+          setLoading(false);
+          return;
+        }
+
+        setBlog(blogDoc);
+        setTitle(blogDoc.title || '');
+
+        const tiptapContent = blogDoc.content || { type: 'doc', content: [] }; // fallback if null
+        editor?.commands.setContent(tiptapContent);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching blog:', err);
+        setErrorMsg('❌ Failed to fetch blog.');
+        setLoading(false);
+      }
+    };
+
+    if (editor) fetchBlog();
+  }, [slug, editor]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!blog) {
-      alert("Blog not found.");
-      return;
-    }
+    if (!blog || !editor) return;
 
     try {
+      const tiptapJSON = editor.getJSON();
+
       await adminClient
         .patch(blog._id)
         .set({
-          title: formData.title,
-          content: formData.content,
+          title: title,
+          content: tiptapJSON,
         })
         .commit();
 
-      alert('Blog updated successfully!');
-      fetchBlog(); 
+      alert('✅ Blog updated successfully!');
+      navigate('/admin/all-blogs');
     } catch (err) {
       console.error('Error updating blog:', err);
-      alert('Failed to update blog.');
+      alert('❌ Failed to update blog.');
     }
   };
 
-  if (blog === null) return <p>No blog found with this slug.</p>;
-  if (!blog) return <p>Loading...</p>;
+  if (loading) return <p>Loading...</p>;
+  if (errorMsg) return <p>{errorMsg}</p>;
 
   return (
-    <form onSubmit={handleSubmit} className='edit-blog-form'>
+    <form onSubmit={handleSubmit} className="edit-blog-form">
       <input
         name="title"
-        value={formData.title}
-        onChange={handleChange}
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
         placeholder="Blog Title"
-        className='edit-blog-title'
+        className="edit-blog-title"
       />
-      <textarea
-        name="content"
-        value={formData.content}
-        onChange={handleChange}
-        placeholder="Blog Content"
-        className='edit-blog-content'
-      />
-      <button type="submit" className='edit-blog-button'>
-        Save Changes
-      </button>
+
+      <div className="editor-toolbar">
+        <button type="button" onClick={() => editor.chain().focus().toggleBold().run()}>Bold</button>
+        <button type="button" onClick={() => editor.chain().focus().toggleItalic().run()}>Italic</button>
+        <button type="button" onClick={() => editor.chain().focus().toggleStrike().run()}>Strike</button>
+        <button type="button" onClick={() => editor.chain().focus().setParagraph().run()}>Paragraph</button>
+        {[1, 2, 3, 4, 5, 6].map((level) => (
+          <button
+            key={level}
+            type="button"
+            onClick={() => editor.chain().focus().toggleHeading({ level }).run()}
+          >
+            H{level}
+          </button>
+        ))}
+        <button type="button" onClick={() => editor.chain().focus().toggleBulletList().run()}>Bullet List</button>
+      </div>
+
+      {editor && <EditorContent editor={editor} className="editor" />}
+
+      <button type="submit" className="edit-blog-button">Save Changes</button>
     </form>
   );
 }

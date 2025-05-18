@@ -55,3 +55,30 @@
 .create-blog-button:hover {
   background-color: #005f46;
 }
+
+.editor {
+  min-height: 200px;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  background: white;
+}
+
+.editor-toolbar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.editor-toolbar button {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  background: #f3f3f3;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.editor-toolbar button:hover {
+  background: #e0e0e0;
+}

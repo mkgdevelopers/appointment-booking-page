@@ -9,7 +9,7 @@ const BlogManager = () => {
   const navigate = useNavigate()
   const [blogs, setBlogs] = useState([]);
     const handleCreateBlog = () => {
-    navigate("/appointment-booking-page/admin/create-blog"); 
+    navigate("/admin/create-blog"); 
   };
 
   useEffect(() => {

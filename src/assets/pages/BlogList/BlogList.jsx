@@ -1,58 +1,67 @@
-import React, { useEffect, useState } from 'react'
-import './BlogList.css'
-import { client } from '../../../sanityClient';
-import Header from '../../components/Header/Header';
-import { Link } from 'react-router-dom';
-import { urlFor } from '../../../sanityClient'; 
-
+import React, { useEffect, useState } from "react";
+import "./BlogList.css";
+import { client } from "../../../sanityClient";
+import Header from "../../components/Header/Header";
+import { Link } from "react-router-dom";
+import { urlFor } from "../../../sanityClient";
 
 const BlogList = () => {
-    const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState([]);
+  const [filteredBlogs, setFilteredBlogs] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
-    useEffect(()=>{
-        const fetchBlogs = async () => {
-            const response = await client.fetch(`*[_type == "blog"]`);
-            setBlogs(response)
-            console.log(response)
-        }
-        fetchBlogs()
-    },[])
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      const response = await client.fetch(`*[_type == "blog"]`);
+      setBlogs(response);
+      setFilteredBlogs(response);
+    };
+    fetchBlogs();
+  }, []);
+
+  useEffect(() => {
+    const filtered = blogs.filter((blog) =>
+      blog.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredBlogs(filtered);
+  }, [searchQuery, blogs]);
   return (
     <div>
-        <Header/>
-        <div className="blogs-container">
-            <div className="search">
-            <span>Search Blog</span>
-            <input type="search" placeholder='not functional yet...'/>
-            </div>
-            <div className="cards">
-            {blogs.map((blog) => (
-  <div key={blog._id} className="blog-card">
-    <div className="img-container">
-      {blog.image && (
-        <img
-          src={urlFor(blog.image)?.url()}
-          alt={blog.title}
-          className="your-image-class"
-        />
-      )}
-    </div>
-    <div className="blog-details">
-      <h2>{blog.title}</h2>
-      <div className="button">
-        <Link to={`/appointment-booking-page/blogs/${blog.slug?.current}`}>
-          Read More
-        </Link>
+      <Header />
+      <div className="blogs-container">
+        <div className="search">
+          <input
+            type="text"
+            placeholder="search blogs..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-input"
+          />
+        </div>
+        <div className="cards">
+          {filteredBlogs.length > 0
+            ? filteredBlogs.map((blog) => (
+                <Link
+                  to={`/blogs/${blog.slug.current}`}
+                  key={blog.slug.current}
+                  className="blog-card"
+                >
+                  {blog.image && (
+                    <img
+                      src={urlFor(blog.image).width(300).url()}
+                      alt={blog.title}
+                    />
+                  )}
+                  <h2>{blog.title}</h2>
+                </Link>
+              ))
+            : 
+            (<p>Blogs not found</p>)
+              }
+        </div>
       </div>
     </div>
-  </div>
-))}
+  );
+};
 
-
-            </div>
-        </div>
-    </div>
-  )
-}
-
-export default BlogList
+export default BlogList;

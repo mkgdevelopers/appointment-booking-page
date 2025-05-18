@@ -1,70 +1,69 @@
 import React, { useState } from 'react';
+import { EditorContent, useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
 import { adminClient } from '../../../sanityClient';
 import './CreateBlog.css';
 
 const CreateBlog = () => {
-  const [blogData, setBlogData] = useState({
-    title: '',
-    content: '',
-  });
+  const [title, setTitle] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
-  const handleChange = (e) => {
-    setBlogData({ ...blogData, [e.target.name]: e.target.value });
-  };
-
-  const handleImageChange = (e) => {
-    setImageFile(e.target.files[0]);
-  };
+  // ✅ Declare editor first
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: '',
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setErrorMsg('');
     setSuccessMsg('');
+    setErrorMsg('');
 
     try {
+      if (!editor) {
+        throw new Error('Editor not ready');
+      }
+
       let imageAsset = null;
 
+      // ✅ Upload image if selected
       if (imageFile) {
-        const imageDoc = {
-          _type: 'image',
-          asset: await adminClient.assets.upload('image', imageFile),
-        };
+        const upload = await adminClient.assets.upload('image', imageFile);
         imageAsset = {
           _type: 'image',
           asset: {
             _type: 'reference',
-            _ref: imageDoc.asset._id,
+            _ref: upload._id,
           },
         };
       }
 
-      const slugifiedTitle = blogData.title
-  .toLowerCase()
-  .replace(/\s+/g, '-')
-  .replace(/[^a-z0-9-]/g, '')
-  .slice(0, 96);
+      const slug = title
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^a-z0-9-]/g, '')
+        .slice(0, 96);
 
-const doc = {
-  _type: 'blog',
-  title: blogData.title,
-  content: blogData.content,
-  image: imageAsset,
-  slug: {
-    _type: 'slug',
-    current: slugifiedTitle,
-  },
-  createdAt: new Date().toISOString(),
-};
-
+      const doc = {
+        _type: 'blog',
+        title,
+        content: {
+  content: JSON.stringify(editor.getJSON())
+},
+        image: imageAsset,
+        slug: { _type: 'slug', current: slug },
+        createdAt: new Date().toISOString(),
+      };
 
       await adminClient.create(doc);
+
       setSuccessMsg('✅ Blog post created successfully!');
-      setBlogData({ title: '', content: '' });
+      setTitle('');
+      editor.commands.setContent('');
       setImageFile(null);
     } catch (err) {
       console.error(err);
@@ -82,21 +81,59 @@ const doc = {
           type="text"
           name="title"
           placeholder="Blog Title"
-          value={blogData.title}
-          onChange={handleChange}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           required
         />
-        <textarea
-          name="content"
-          placeholder="Blog Content"
-          value={blogData.content}
-          onChange={handleChange}
-          required
+
+        <div className="editor-toolbar">
+  <button type="button" onClick={() => editor.chain().focus().toggleBold().run()}>
+    Bold
+  </button>
+  <button type="button" onClick={() => editor.chain().focus().toggleItalic().run()}>
+    Italic
+  </button>
+  <button type="button" onClick={() => editor.chain().focus().toggleStrike().run()}>
+    Strike
+  </button>
+  <button type="button" onClick={() => editor.chain().focus().setParagraph().run()}>
+    Paragraph
+  </button>
+  <button type="button" onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}>
+    H1
+  </button>
+   <button type="button" onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>
+    H2
+  </button>
+   <button type="button" onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}>
+    H3
+  </button>
+   <button type="button" onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}>
+    H4
+  </button>
+   <button type="button" onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}>
+    H5
+  </button>
+   <button type="button" onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}>
+    H6
+  </button>
+  <button type="button" onClick={() => editor.chain().focus().toggleBulletList().run()}>
+    Bullet List
+  </button>
+</div>
+
+        {editor && <EditorContent editor={editor} className="editor" />}
+
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setImageFile(e.target.files[0])}
         />
-        <input type="file" accept="image/*" onChange={handleImageChange} />
-        <button type="submit" disabled={loading}>
+
+        <button type="submit" disabled={loading || !editor}>
           {loading ? 'Publishing...' : 'Publish Blog'}
         </button>
+
         {successMsg && <p className="success">{successMsg}</p>}
         {errorMsg && <p className="error">{errorMsg}</p>}
       </form>
